@@ -121,14 +121,16 @@ app.get('/api/cars', async (req, res) => { /* logic unchanged */ });
 app.post('/api/book', async (req, res) => { /* logic unchanged */ });
 app.get('/api/bookings', async (req, res) => { /* logic unchanged */ });
 
-// ---------- FRONTEND DEPLOY (Render/Vercel) ----------
+// ---------- FRONTEND DEPLOY ----------
 if (process.env.NODE_ENV === 'production') {
   const clientPath = path.resolve(__dirname, '../client/dist');
   app.use(express.static(clientPath));
-  app.get('*', (req, res) => {
+
+  app.get('/*', (req, res) => {
     res.sendFile(path.join(clientPath, 'index.html'));
   });
 }
+
 
 // ---------- START SERVER ----------
 const PORT = process.env.PORT || 5000;
